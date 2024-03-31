@@ -28,5 +28,5 @@ def init_db():
 if __name__ == '__main__':
     # init_db()
     # remove_all()
-    res = json.dumps(db.reference("/").get(), indent=4)
-    print(res)
+    # res = json.dumps(db.reference("/6618942127/movies").get(), indent=4)
+    print(db.reference("/6618942127/movies").get())

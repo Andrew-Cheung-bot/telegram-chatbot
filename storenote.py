@@ -8,6 +8,8 @@ from telegram import ParseMode, Update
 from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters,
                           CallbackContext)
 from datetime import datetime
+from tabulate import tabulate
+import json
 
 
 class StoreNote():
@@ -35,7 +37,7 @@ class StoreNote():
         except:
             context.bot.send_message(
                 chat_id=update.effective_chat.id, text='Usage: /booknote <Name> <Author> <note>')
-            
+
     def store_movie_notes(self, update: Update, context: CallbackContext) -> None:
         try:
             movie_name, movie_author, note = context.args
@@ -52,3 +54,35 @@ class StoreNote():
         except:
             context.bot.send_message(
                 chat_id=update.effective_chat.id, text='Usage: /moviecomment <Name> <Author> <note>')
+
+    def list_books(self, update: Update, context: CallbackContext) -> None:
+        getbooks = db.reference(f'{update.message.from_user.id}/books/')
+        data = getbooks.get()
+        # print(data)
+        # parsed_data = json.load(getbooks.get())
+        table_data = [["Author", 'Name', "Note"]]
+        for author in data:
+            # print(author)
+            for bookname in data.get(author):
+                # print(bookname)
+                table_data.append([author, bookname, data.get(
+                    author).get(bookname).get('note')])
+        table = tabulate(table_data, headers='firstrow', tablefmt='pipe')
+        context.bot.send_message(
+            chat_id=update.effective_chat.id, text=f'```{table}```', parse_mode=ParseMode.MARKDOWN_V2)
+
+    def list_movies(self, update: Update, context: CallbackContext) -> None:
+        getmovies = db.reference(f'{update.message.from_user.id}/movies/')
+        data = getmovies.get()
+        # print(data)
+        # parsed_data = json.load(getbooks.get())
+        table_data = [["Director", 'Name', "Note"]]
+        for director in data:
+            # print(author)
+            for moviename in data.get(director):
+                # print(bookname)
+                table_data.append([director, moviename, data.get(
+                    director).get(moviename).get('note')])
+        table = tabulate(table_data, headers='firstrow', tablefmt='pipe')
+        context.bot.send_message(
+            chat_id=update.effective_chat.id, text=f'```{table}```', parse_mode=ParseMode.MARKDOWN_V2)

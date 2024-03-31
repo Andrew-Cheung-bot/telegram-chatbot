@@ -47,6 +47,8 @@ def main():
         "booknote", sn.store_book_notes))
     dispatcher.add_handler(CommandHandler(
         "movienote", sn.store_movie_notes))
+    dispatcher.add_handler(CommandHandler("listbooks", sn.list_books))
+    dispatcher.add_handler(CommandHandler("listmovies", sn.list_movies))
 
     # To start the bot:
     updater.start_polling()
@@ -68,7 +70,9 @@ def help(update: Update, context: CallbackContext) -> None:
                     "   /movienote \- Save a movienote to Cloud Database\.\n" \
                     "      \[arg0\] \- Movie name\.\n" \
                     "      \[arg1\] \- Movie author\.\n" \
-                    "      \[arg2\] \- note\.\n" 
+                    "      \[arg2\] \- note\.\n" \
+                    "   /listbooks \- List all the book notes\.\n" \
+                    "   /listmovies \- List all the movie notes\.\n" 
     context.bot.send_message(
         chat_id=update.message.from_user.id, text=reply_message, parse_mode=ParseMode.MARKDOWN_V2)
 
