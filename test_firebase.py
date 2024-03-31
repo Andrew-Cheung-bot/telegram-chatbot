@@ -20,13 +20,13 @@ def init_db():
     # this id is fake, just for testing.
     telegram_user_id = '541221345'
     # replace {author},{director}, {book_name}, {movie_name} by actual values.
-    books = db.reference(f'{telegram_user_id}/books/author/book_name/comment')
-    movies = db.reference(f'{telegram_user_id}/movies/director/movie_name/comment')
+    books = db.reference(f'{telegram_user_id}/books/author/book_name/note')
+    movies = db.reference(f'{telegram_user_id}/movies/director/movie_name/note')
     books.set('')
     movies.set('')
 
 if __name__ == '__main__':
-    init_db()
+    # init_db()
     # remove_all()
     res = json.dumps(db.reference("/").get(), indent=4)
     print(res)
