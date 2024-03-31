@@ -15,7 +15,6 @@ from firebase_admin import db
 import re
 from firebase_admin import firestore
 
-global redis1
 global chatgpt
 def main():
     # Load your token and create an Updater for your Bot
