@@ -7,7 +7,17 @@ class HKBU_ChatGPT():
             self.config.read(config_path)
         elif type(config_path) == configparser.ConfigParser:
             self.config = config_path
+            
     def submit(self,message):
+        """Default submit function
+
+        Args:
+            message (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
+
         conversation = [{"role": "user", "content": message}]
         url = (self.config['CHATGPT']['BASICURL']) + "/deployments/" + (self.config['CHATGPT']['MODELNAME']) + "/chat/completions/?api-version=" + (self.config['CHATGPT']['APIVERSION'])
         headers = { 'Content-Type': 'application/json', 'api-key': (self.config['CHATGPT']['ACCESS_TOKEN']) }
@@ -20,9 +30,18 @@ class HKBU_ChatGPT():
             return 'Error:', response
 
     def submit_books(self,message):
+        """return the books recommended by chatbot
+
+        Args:
+            message (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
+
         conversation = [
             {'role': 'system',
-             'content': 'You are a book recommendation chatbot. Please provide details about the book name(quoted by ""), book author(quoted by []),, pubilished year and any comments on this book. Each item should be list by bullitins.'},
+             'content': 'You are a book recommendation chatbot. Please provide details about the book name(quoted by ""), book author(quoted by []), pubilished year and any comments on this book. Each item should be list by this format: -Name:,-Author:,-Pubilished year,-Description as Key. Each item should use blank line to separate. User will input a type of book, and you will list 4 books about this type. If user input unspecified, it means you will recommend 4 different types of books.'},
             {"role": "user", "content": message}
         ]
         url = (self.config['CHATGPT']['BASICURL']) + "/deployments/" + (self.config['CHATGPT']['MODELNAME']) + "/chat/completions/?api-version=" + (self.config['CHATGPT']['APIVERSION'])
@@ -36,9 +55,18 @@ class HKBU_ChatGPT():
             return 'Error:', response
 
     def submit_movies(self,message):
+        """return the movies recommended by chatbot
+
+        Args:
+            message (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
+
         conversation = [
             {'role': 'system',
-             'content': 'You are a movie recommendation chatbot. Please provide details about the movie name(quoted by ""), director name(quoted by []) and main actors name, pubilished year and any comments on this movie. Each item should be list by bullitins.'},
+             'content': 'You are a movie recommendation chatbot. Please provide details about the movie name(quoted by ""), director name(quoted by []) and main actors name, pubilished year and any comments on this movie. Each item should be list by this format: -Name:,-Author:,-Pubilished year,-Description as Key. Each item should use blank line to separate. User will input a type of movie, and you will list 4 movies about this type. If user input unspecified, it means you will recommend 4 different types of movies.'},
             {"role": "user", "content": message}
         ]
         url = (self.config['CHATGPT']['BASICURL']) + "/deployments/" + (self.config['CHATGPT']['MODELNAME']) + "/chat/completions/?api-version=" + (self.config['CHATGPT']['APIVERSION'])
