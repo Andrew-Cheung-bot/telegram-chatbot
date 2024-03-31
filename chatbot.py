@@ -54,6 +54,7 @@ def main():
     dispatcher.add_handler(CommandHandler("books", books))
     dispatcher.add_handler(CommandHandler("movies", movies))
     dispatcher.add_handler(CommandHandler("records", records))
+    
     # To start the bot:
     updater.start_polling()
     updater.idle()
