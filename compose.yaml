@@ -1,0 +1,12 @@
+version: '3'
+services:
+  chatbot1:
+    image: chatbot
+  chatbot2:
+    image: chatbot
+  chatbot2:
+    image: chatbot
+  nginx:
+    image: nginx
+    volumes:
+      - ./redis.conf:/usr/local/etc/redis/redis.conf

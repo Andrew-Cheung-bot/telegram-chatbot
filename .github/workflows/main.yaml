@@ -1,0 +1,28 @@
+name: Server Deploy
+
+on:
+  push:
+    branches:
+      - 'main'
+
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  # 'deploy' is a unique identifier for your job
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      # check the code using github checkout@v4
+      - uses: actions/checkout@v4
+      # deploy our app on cloud server
+      - run: echo deploying
+
+# maybe you need to import the Server API TOKEN to Github ENV
+# And you can learn how to do from our Lab6
+env:
+
+
+

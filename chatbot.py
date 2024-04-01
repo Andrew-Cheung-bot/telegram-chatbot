@@ -27,18 +27,14 @@ def main():
 
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                         level=logging.INFO)
-    # register a dispatcher to handle message: here we register an echo dispatcher
-    # echo_handler = MessageHandler(Filters.text & (~Filters.command), echo)
-    # dispatcher.add_handler(echo_handler)
+    sn = StoreNote()
+
 
     global chatgpt
     chatgpt = HKBU_ChatGPT(config)
     chatgpt_handler = MessageHandler(
         Filters.text & (~Filters.command), equiped_chatgpt)
     dispatcher.add_handler(chatgpt_handler)
-
-    sn = StoreNote()
-
     # on different commands - answer in Telegram
     dispatcher.add_handler(CommandHandler("books", books))
     dispatcher.add_handler(CommandHandler("movies", movies))
@@ -51,7 +47,8 @@ def main():
     dispatcher.add_handler(CommandHandler("listmovies", sn.list_movies))
 
     # To start the bot:
-    updater.start_polling()
+    # updater.start_polling()
+    updater.start_webhook(listen='127.0.0.1',port=80,cert=None,key=None,url_path='/')
     updater.idle()
 
 
