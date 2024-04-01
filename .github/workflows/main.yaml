@@ -36,7 +36,7 @@ jobs:
 
 # maybe you need to import the Server API TOKEN to Github ENV
 # And you can learn how to do from our Lab6
-env:
+# env:
 
 
 
