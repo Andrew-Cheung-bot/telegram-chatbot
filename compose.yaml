@@ -1,11 +1,11 @@
 version: '3'
 services:
   chatbot1:
-    image: chatbot
+    image: z623nd3/chatbotv0:latest
   chatbot2:
-    image: chatbot
+    image: z623nd3/chatbotv0:latest
   chatbot2:
-    image: chatbot
+    image: z623nd3/chatbotv0:latest
   nginx:
     image: nginx
     volumes:
