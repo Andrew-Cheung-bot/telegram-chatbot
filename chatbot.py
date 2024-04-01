@@ -47,8 +47,8 @@ def main():
     dispatcher.add_handler(CommandHandler("listmovies", sn.list_movies))
 
     # To start the bot:
-    # updater.start_polling()
-    updater.start_webhook(listen='127.0.0.1',port=80,cert=None,key=None,url_path='/')
+    updater.start_polling()
+    # updater.start_webhook(listen='127.0.0.1',port=80,cert=None,key=None,url_path='/')
     updater.idle()
 
 
