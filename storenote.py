@@ -16,7 +16,8 @@ class StoreNote():
     def __init__(self) -> None:
         config = configparser.ConfigParser()
         config.read('config.ini')
-        cred_object = firebase_admin.credentials.Certificate('./firebase.json')
+        cred_object = firebase_admin.credentials.Certificate(
+            '/etc/secrets/firebase.json')
         default_app = firebase_admin.initialize_app(cred_object, {
             'databaseURL': config['FIREBASE']['URL']
         })
