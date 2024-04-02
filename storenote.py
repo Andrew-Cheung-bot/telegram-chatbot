@@ -18,6 +18,8 @@ class StoreNote():
         config.read('config.ini')
         cred_object = firebase_admin.credentials.Certificate(
             '/etc/secrets/firebase.json')
+        # cred_object = firebase_admin.credentials.Certificate(
+        #     './firebase.json')
         default_app = firebase_admin.initialize_app(cred_object, {
             'databaseURL': config['FIREBASE']['URL']
         })
