@@ -33,6 +33,7 @@ Your project should fulfill the following requirements. Fail to comply will incu
 - the app must be managed by git;
 - container technologies must be used; and
 - monitoring and managing your cloud properly without being charged a lot.
+
 Additional marks will be given to groups who are able to demonstrate:
 
 - Good Practices of DevOps workflow;
