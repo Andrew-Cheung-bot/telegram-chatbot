@@ -22,9 +22,13 @@ def main():
     # Load your token and create an Updater for your Bot
     # config = configparser.ConfigParser()
     # config.read('config.ini')
-    updater = Updater(
-        token=(os.environ['TELEGRAM_ACCESS_TOKEN']), use_context=True)
-    dispatcher = updater.dispatcher
+    try:
+        updater = Updater(
+            token=(os.environ['TELEGRAM_ACCESS_TOKEN']), use_context=True)
+        dispatcher = updater.dispatcher
+    except:
+        print('catch unexpected error...')
+
 
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                         level=logging.INFO)
