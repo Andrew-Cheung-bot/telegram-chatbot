@@ -10,6 +10,7 @@ from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters,
 from datetime import datetime
 from tabulate import tabulate
 import json
+import os
 
 
 class StoreNote():
@@ -21,7 +22,7 @@ class StoreNote():
         # cred_object = firebase_admin.credentials.Certificate(
         #     './firebase.json')
         default_app = firebase_admin.initialize_app(cred_object, {
-            'databaseURL': config['FIREBASE']['URL']
+            'databaseURL': os.environ['URL']
         })
 
     def store_book_notes(self, update: Update, context: CallbackContext) -> None:
