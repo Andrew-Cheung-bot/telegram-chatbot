@@ -15,14 +15,15 @@ from firebase_admin import db
 import re
 from firebase_admin import firestore
 from storenote import StoreNote
+import os
 
 global chatgpt
 def main():
     # Load your token and create an Updater for your Bot
-    config = configparser.ConfigParser()
-    config.read('config.ini')
+    # config = configparser.ConfigParser()
+    # config.read('config.ini')
     updater = Updater(
-        token=(config['TELEGRAM']['TELEGRAM_ACCESS_TOKEN']), use_context=True)
+        token=(os.environ['TELEGRAM_ACCESS_TOKEN']), use_context=True)
     dispatcher = updater.dispatcher
 
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -31,7 +32,7 @@ def main():
 
 
     global chatgpt
-    chatgpt = HKBU_ChatGPT(config)
+    chatgpt = HKBU_ChatGPT()
     chatgpt_handler = MessageHandler(
         Filters.text & (~Filters.command), equiped_chatgpt)
     dispatcher.add_handler(chatgpt_handler)
