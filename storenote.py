@@ -17,12 +17,12 @@ class StoreNote():
     def __init__(self) -> None:
         config = configparser.ConfigParser()
         config.read('config.ini')
-        cred_object = firebase_admin.credentials.Certificate(
-            '/etc/secrets/firebase.json')
         # cred_object = firebase_admin.credentials.Certificate(
-        #     './firebase.json')
+        #     '/etc/secrets/firebase.json')
+        cred_object = firebase_admin.credentials.Certificate(
+            './firebase.json')
         default_app = firebase_admin.initialize_app(cred_object, {
-            'databaseURL': os.environ['URL']
+            'databaseURL': config['FIREBASE']['URL']
         })
 
     def store_book_notes(self, update: Update, context: CallbackContext) -> None:

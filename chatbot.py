@@ -20,11 +20,11 @@ import os
 global chatgpt
 def main():
     # Load your token and create an Updater for your Bot
-    # config = configparser.ConfigParser()
-    # config.read('config.ini')
+    config = configparser.ConfigParser()
+    config.read('config.ini')
     try:
         updater = Updater(
-            token=(os.environ['TELEGRAM_ACCESS_TOKEN']), use_context=True)
+            token=(config['TELEGRAM']['TELEGRAM_ACCESS_TOKEN']), use_context=True)
         dispatcher = updater.dispatcher
     except:
         print('catch unexpected error...')
@@ -52,8 +52,10 @@ def main():
     dispatcher.add_handler(CommandHandler("listmovies", sn.list_movies))
 
     # To start the bot:
-    updater.start_polling()
-    # updater.start_webhook(listen='127.0.0.1',port=80,cert=None,key=None,url_path='/')
+    # updater.start_polling()
+    updater.start_webhook(listen='127.0.0.1', port=5000, cert='./cert.pem',
+                          key='./private.key', webhook_url='https://18.166.69.29')
+    print('bot started!')
     updater.idle()
 
 

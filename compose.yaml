@@ -1,12 +1,48 @@
 version: '3'
+
 services:
   chatbot1:
     image: z623nd3/chatbotv0:latest
+    networks:
+      mynetwork:
+        ipv4_address: 172.20.0.2
+    ports:
+      - "5001:5000"
+
   chatbot2:
     image: z623nd3/chatbotv0:latest
-  chatbot2:
+    networks:
+      mynetwork:
+        ipv4_address: 172.20.0.3
+    ports:
+      - "5002:5000"
+
+  chatbot3:
     image: z623nd3/chatbotv0:latest
+    networks:
+      mynetwork:
+        ipv4_address: 172.20.0.4
+    ports:
+      - "5003:5000"
+
   nginx:
     image: nginx
+    networks:
+      mynetwork:
+        ipv4_address: 172.20.0.5
+    ports:
+      - "443:80"
     volumes:
-      - ./redis.conf:/usr/local/etc/redis/redis.conf
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - chatbot1
+      - chatbot2
+      - chatbot3
+
+networks:
+  mynetwork:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16
